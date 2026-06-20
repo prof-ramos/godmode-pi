@@ -8,14 +8,14 @@ honor its STOP conditions, and update your row when done.
 
 | Plan | Title | Priority | Effort | Depends on | Status |
 |------|-------|----------|--------|------------|--------|
-| 001 | Remove unused Python scaffold | P1 | S | — | TODO |
-| 002 | Add GitHub Actions CI for config validation | P1 | S | — | TODO |
-| 003 | Add config validation script | P1 | S | — | TODO |
-| 004 | Add install/deploy script | P2 | S | — | TODO |
-| 005 | Remove duplicate MCP servers from opencode config | P2 | S | — | TODO |
-| 006 | Add AGENTS.md for AI-agent project context | P1 | S | — | TODO |
-| 007 | Design/spike — Build validation + install CLI | P3 | M | 001 (conflict) | TODO |
-| 008 | Design/spike — Automated regression testing | P3 | M | 003 | TODO |
+| 001 | Remove unused Python scaffold | P1 | S | — | DONE |
+| 002 | Add GitHub Actions CI for config validation | P1 | S | — | DONE |
+| 003 | Add config validation script | P1 | S | — | DONE |
+| 004 | Add install/deploy script | P2 | S | — | DONE |
+| 005 | Remove duplicate MCP servers from opencode config | P2 | S | — | DONE (local only — .opencode/ is gitignored) |
+| 006 | Add AGENTS.md for AI-agent project context | P1 | S | — | DONE |
+| 007 | Design/spike — Build validation + install CLI | P3 | M | 001 (conflict) | DONE |
+| 008 | Design/spike — Automated regression testing | P3 | M | 003 | DONE |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJECTED (with one-line rationale)
 
