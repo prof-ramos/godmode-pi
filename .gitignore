@@ -29,6 +29,13 @@ build/
 *.swp
 *.swo
 
+# Python
+.venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+
 # OpenCode project state
 .opencode/
 
