@@ -1,0 +1,56 @@
+name: Validate configs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate config.yml
+        run: |
+          python3 -c "
+import re
+content = open('config.yml').read()
+assert re.search(r'^\w+:', content, re.MULTILINE), 'config.yml: no top-level key'
+assert 'systemPrompt' in content, 'config.yml: missing systemPrompt'
+print('config.yml: OK')
+"
+
+      - name: Validate prefill.json
+        run: |
+          python3 -c "
+import json
+d = json.load(open('prefill.json'))
+assert isinstance(d, list), 'prefill.json: root must be array'
+for i, m in enumerate(d):
+    assert 'role' in m, f'prefill.json[{i}]: missing role'
+    assert m['role'] in ('user', 'assistant'), f'prefill.json[{i}]: role must be user/assistant'
+    assert 'content' in m, f'prefill.json[{i}]: missing content'
+    assert isinstance(m['content'], str), f'prefill.json[{i}]: content must be string'
+print('prefill.json: OK')
+"
+
+      - name: Validate Modelfile-godmode
+        run: |
+          head -1 Modelfile-godmode | grep -q '^FROM' || { echo 'Modelfile-godmode: missing FROM'; exit 1; }
+          grep -q '^SYSTEM' Modelfile-godmode || { echo 'Modelfile-godmode: missing SYSTEM'; exit 1; }
+          echo 'Modelfile-godmode: OK'
+
+      - name: Validate Markdown files
+        run: |
+          for f in APPEND_SYSTEM.md RULES.md; do
+            test -s "$f" && echo "$f: OK" || { echo "$f: empty or missing"; exit 1; }
+          done
+
+      - name: Validate README internal links
+        run: |
+          grep -oP '\[.*?\]\(.*?\)' README.md | grep -v '^http' | sed 's/.*(//;s/)//' | while read f; do
+            test -f "$f" || test -d "$f" || { echo "MISSING LINK: $f"; exit 1; }
+          done
+          echo "README links: OK"
