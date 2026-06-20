@@ -28,3 +28,11 @@ build/
 .idea/
 *.swp
 *.swo
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+
