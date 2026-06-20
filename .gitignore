@@ -36,3 +36,6 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 
+# OpenCode project state
+.opencode/
+
